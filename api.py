@@ -22,5 +22,16 @@ tasks =[
 def get_tasks():
     return jsonify({'tasks':tasks})
 
+
+@app.route('/todo/api/v1.0/tasks/<int:task_id>',methods=['GET'])
+def get_task(task_id):
+    task1 = filter(lambda t: t['id']== task_id, tasks)
+    if len(task1)==0:
+        abort(404)
+    return jsonify({'task1':task1[0]})
+
 if __name__=="__main__":
     app.run()
+
+
+
