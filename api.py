@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
 
 app=Flask(__name__)
 
@@ -29,6 +29,10 @@ def get_task(task_id):
     if len(task1)==0:
         abort(404)
     return jsonify({'task1':task1[0]})
+
+@app.errorhandler(500)
+def not_found(error):
+    return make_response(jsonify({'error':'Not found'}), 404)
 
 if __name__=="__main__":
     app.run()
